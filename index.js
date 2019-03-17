@@ -37,22 +37,53 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 exports.__esModule = true;
 var querystring = require("querystring");
-var SLACK_VERIFICATION_TOKEN = process.env.SLACK_VERIFICATION_TOKEN;
+var axios = require("axios");
+var SLACK_ACCESS_TOKEN = process.env.SLACK_ACCESS_TOKEN;
+var SLACK_API_URL = 'https://slack.com/api';
 exports.handler = function (event) { return __awaiter(_this, void 0, void 0, function () {
-    var payload, body, response;
+    var payload, triggerId, dialog, body, response;
     return __generator(this, function (_a) {
-        payload = querystring.parse(event.body);
-        if (payload.token !== SLACK_VERIFICATION_TOKEN) {
-            throw new Error('Invalid verification token');
+        switch (_a.label) {
+            case 0:
+                payload = querystring.parse(event.body);
+                triggerId = payload.trigger_id;
+                dialog = {
+                    token: SLACK_ACCESS_TOKEN,
+                    trigger_id: triggerId,
+                    dialog: JSON.stringify({
+                        callback_id: "testid",
+                        title: "Request a Ride",
+                        submit_label: "Request",
+                        notify_on_cancel: true,
+                        state: "Limo",
+                        elements: [
+                            {
+                                type: "text",
+                                label: "Pickup Location",
+                                name: "loc_origin"
+                            },
+                            {
+                                type: "text",
+                                label: "Dropoff Location",
+                                name: "loc_destination"
+                            }
+                        ]
+                    })
+                };
+                // open dialog
+                return [4 /*yield*/, axios["default"].post(SLACK_API_URL + "/dialog.open", querystring.stringify(dialog))];
+            case 1:
+                // open dialog
+                _a.sent();
+                body = {
+                    response_type: "in_channel",
+                    text: "hello miso"
+                };
+                response = {
+                    statusCode: 200,
+                    body: JSON.stringify(body)
+                };
+                return [2 /*return*/, response];
         }
-        body = {
-            response_type: "in_channel",
-            text: "hello miso"
-        };
-        response = {
-            statusCode: 200,
-            body: JSON.stringify(body)
-        };
-        return [2 /*return*/, response];
     });
 }); };

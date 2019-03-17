@@ -7,16 +7,13 @@ const SLACK_API_URL = 'https://slack.com/api';
 exports.handler = async (event: any) => {
 
     const payload = querystring.parse(event.body);
-    // if (payload.token !== SLACK_VERIFICATION_TOKEN) {
-    //     throw new Error('Invalid verification token');
-    // }
 
     const triggerId = payload.trigger_id;
     const dialog = {
         token: SLACK_ACCESS_TOKEN,
         trigger_id: triggerId,
         dialog: JSON.stringify({
-            callback_id: "testid",
+            callback_id: "send-form-id",
             title: "Request a Ride",
             submit_label: "Request",
             notify_on_cancel: true,
@@ -41,7 +38,7 @@ exports.handler = async (event: any) => {
 
     const body = {
         response_type: "in_channel",
-        text: "hello miso"
+        text: "Please, input form."
     };
 
     const response = {

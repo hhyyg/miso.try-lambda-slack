@@ -51,7 +51,7 @@ exports.handler = function (event) { return __awaiter(_this, void 0, void 0, fun
                     token: SLACK_ACCESS_TOKEN,
                     trigger_id: triggerId,
                     dialog: JSON.stringify({
-                        callback_id: "testid",
+                        callback_id: "send-form-id",
                         title: "Request a Ride",
                         submit_label: "Request",
                         notify_on_cancel: true,
@@ -77,7 +77,7 @@ exports.handler = function (event) { return __awaiter(_this, void 0, void 0, fun
                 _a.sent();
                 body = {
                     response_type: "in_channel",
-                    text: "hello miso"
+                    text: "Please, input form."
                 };
                 response = {
                     statusCode: 200,

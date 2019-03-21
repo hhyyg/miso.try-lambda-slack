@@ -2,7 +2,6 @@ import * as crypto from 'crypto';
 import * as timingSafeCompare from 'tsscmp';
 
 export function isVerified(req: any) {
-    console.log(req['headers']);
     const signature = req['headers']['X-Slack-Signature'];
     const timestamp = req['headers']['X-Slack-Request-Timestamp'];
     const hmac = crypto.createHmac('sha256', process.env.SLACK_SIGNING_SECRET);

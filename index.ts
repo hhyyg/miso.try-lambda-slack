@@ -22,12 +22,16 @@ exports.handler = async (event: any) => {
                 {
                     type: "text",
                     label: "Pickup Location",
-                    name: "loc_origin"
+                    name: "loc_origin",
+                    placeholder: "Tokyo",
+                    hint: "hint text",
                 },
                 {
                     type: "text",
                     label: "Dropoff Location",
-                    name: "loc_destination"
+                    name: "loc_destination",
+                    placeholder: "Hokkaido",
+                    hint: "hint text",
                 }
             ]
         })

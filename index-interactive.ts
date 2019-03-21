@@ -9,9 +9,11 @@ exports.handler = async (event: any) => {
     const responseUrl = payload.response_url;
     const request_location_origin = payload.submission.loc_origin;
     const request_location_destination = payload.submission.loc_destination;
+    const userName = payload.user.name;
+    const userId = payload.user.id;
     
     const data = {
-        text: `Success!`,
+        text: `Success! userId: ${userId}, userName: ${userName}`,
         response_type: "in_channel",
         attachments: [{
             color: 'good',

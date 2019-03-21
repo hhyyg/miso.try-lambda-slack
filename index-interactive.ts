@@ -1,13 +1,20 @@
 import * as querystring from 'querystring';
 import * as axios from 'axios';
 import * as aws from 'aws-sdk';
-import { DynamoDbSettings } from 'aws-sdk/clients/dms';
+import { isVerified } from './verifySignature';
 
 const dynamo = new aws.DynamoDB.DocumentClient({
     region: 'ap-northeast-1'
 });
 
 exports.handler = async (event: any) => {
+    
+    if (!isVerified(event)) {
+        console.error('Verification token mismatch');
+        return {
+            statusCode: '401'
+        }
+    }
 
     const body = querystring.parse(event.body);
     const payload = JSON.parse(body.payload);
@@ -20,6 +27,7 @@ exports.handler = async (event: any) => {
     
     putTicket(userId, userName, request_location_origin, request_location_destination);
 
+    // TODO: send fail message.
     const data = {
         text: `Success! userId: ${userId}, userName: ${userName}`,
         response_type: "in_channel",

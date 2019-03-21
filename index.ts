@@ -1,10 +1,18 @@
 import * as querystring from 'querystring';
 import * as axios from 'axios';
+import { isVerified } from './verifySignature';
 
 const SLACK_ACCESS_TOKEN = process.env.SLACK_ACCESS_TOKEN;
 const SLACK_API_URL = 'https://slack.com/api';
 
 exports.handler = async (event: any) => {
+
+    if (!isVerified(event)) {
+        console.error('Verification token mismatch');
+        return {
+            statusCode: '401'
+        }
+    }
 
     const payload = querystring.parse(event.body);
 

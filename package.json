@@ -8,7 +8,9 @@
     "async": "^2.6.2",
     "aws-sdk": "^2.425.0",
     "axios": "^0.18.0",
-    "querystring": "^0.2.0"
+    "crypto": "^1.0.1",
+    "querystring": "^0.2.0",
+    "tsscmp": "^1.0.6"
   },
   "devDependencies": {},
   "scripts": {
